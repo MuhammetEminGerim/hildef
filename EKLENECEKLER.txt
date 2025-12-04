@@ -1,0 +1,20 @@
+ÖNERİLEN YENİ ÖZELLİKLER (DAHA SOMUT VE GÖRSEL)
+
+3. Günlük Karne (Aktivite Raporu) - ERTELENDİ
+   - Konsept: "Bugün Ne Yaptık?" (Activity Workshop Modeli)
+   - İçerik: Klasik kreş verileri (yemek/uyku) yerine, o gün tamamlanan atölye çalışmaları ve kazanımlar.
+   - Örn: "Robotik Atölyesinde [Proje X] tamamlandı."
+   - Hedef: Velilere çocuğun gelişimini somut göstermek.
+
+---------------------------------------------------------
+ERTELENENLER (İleride Eklenebilir)
+1. Yemek Listesi (Meal Menu)
+   - Haftalık/Aylık yemek programı.
+   - Dashboard widget'ı.
+   
+2. Sağlık ve İlaç Takibi
+   - İlaç hatırlatmaları.
+   - Alerji bilgileri.
+
+3. Bildirim Tercihleri
+4. Ödeme Ayarları (KDV, Faiz vb.)

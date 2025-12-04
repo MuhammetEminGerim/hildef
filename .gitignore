@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+release/
+out/
+build/
+
+# Electron
+*.log
+*.db
+*.db-shm
+*.db-wal
+
+# Environment (SECURITY - DO NOT COMMIT)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Firebase Service Account (SECURITY - DO NOT COMMIT)
+firebase-service-account.json
+*-service-account.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
