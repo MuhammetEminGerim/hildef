@@ -12,6 +12,7 @@ export function initializeFirebaseAdmin() {
     try {
         // Service account key dosyasını ara
         const pathsToCheck = [
+            process.resourcesPath ? path.join(process.resourcesPath, 'firebase-service-account.json') : '',
             path.join(__dirname, '..', 'firebase-service-account.json'), // Production/Build
             path.join(process.cwd(), 'firebase-service-account.json'),   // Development
             path.join(__dirname, '..', '..', 'firebase-service-account.json') // Alternative build structure

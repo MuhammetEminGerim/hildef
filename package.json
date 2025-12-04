@@ -76,6 +76,9 @@
       "output": "release",
       "buildResources": "build"
     },
+    "extraResources": [
+      "firebase-service-account.json"
+    ],
     "files": [
       "dist/**/*",
       "package.json"
