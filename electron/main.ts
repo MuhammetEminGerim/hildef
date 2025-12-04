@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, protocol } from 'electron';
+import { app, BrowserWindow, ipcMain, protocol, dialog } from 'electron';
 import path from 'path';
 import { getDb, closeDb } from './db/connection';
 import { registerStudentsIpc } from './ipc/studentsIpc';
@@ -13,10 +13,14 @@ import { registerUsersIpc } from './ipc/usersIpc';
 import { getSetting } from './db/dal/settingsDal';
 import { ensureDefaultAdmin } from './db/dal/authDal';
 import * as fs from 'fs';
+import { autoUpdater } from 'electron-updater';
 
 let mainWindow: BrowserWindow | null = null;
 let currentUser: SessionUser | null = null;
 let backupTimer: NodeJS.Timeout | null = null;
+
+// Auto-updater logging
+autoUpdater.logger = console;
 
 function getCurrentUser() {
   return currentUser;
@@ -81,6 +85,10 @@ function createWindow() {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
+    // Check for updates after window is shown
+    if (!isDev) {
+      autoUpdater.checkForUpdatesAndNotify();
+    }
   });
 
   mainWindow.on('closed', () => {
@@ -137,6 +145,26 @@ function setupAutoBackup() {
     }
   }, periodMs);
 }
+
+// Auto-updater events
+autoUpdater.on('update-available', () => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Güncelleme Mevcut',
+    message: 'Yeni bir sürüm bulundu ve arka planda indiriliyor.',
+  });
+});
+
+autoUpdater.on('update-downloaded', () => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Güncelleme Hazır',
+    message: 'Güncelleme indirildi. Uygulama şimdi yeniden başlatılacak.',
+    buttons: ['Yeniden Başlat']
+  }).then(() => {
+    autoUpdater.quitAndInstall();
+  });
+});
 
 const gotLock = app.requestSingleInstanceLock();
 
