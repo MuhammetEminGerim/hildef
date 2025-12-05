@@ -1,9 +1,5 @@
 import { app, BrowserWindow, ipcMain, protocol, dialog } from 'electron';
 import { applyTimePatch } from './timeFix';
-
-// Apply time patch immediately to fix "2025 Bug" / Clock Skew
-applyTimePatch();
-
 import path from 'path';
 import { getDb, closeDb } from './db/connection';
 import { registerStudentsIpc } from './ipc/studentsIpc';
@@ -184,6 +180,9 @@ if (!gotLock) {
   });
 
   app.whenReady().then(() => {
+    // Apply time patch to fix "2025 Bug" / Clock Skew
+    applyTimePatch();
+
     // Custom protocol for local files (photos, documents)
     protocol.registerFileProtocol('app', (request, callback) => {
       const url = new URL(request.url);
