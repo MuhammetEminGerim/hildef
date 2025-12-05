@@ -183,7 +183,7 @@ autoUpdater.on('update-not-available', (info) => {
 
 autoUpdater.on('error', (err) => {
   logToFile(`Auto-updater error: ${err}`);
-  dialog.showErrorBox('Güncelleme Hatası', err == null ? "unknown" : (err.stack || err).toString());
+  // Error dialog removed for better UX
 });
 
 autoUpdater.on('download-progress', (progressObj) => {
