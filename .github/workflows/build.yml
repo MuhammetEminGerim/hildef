@@ -48,9 +48,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            npm run build:win
+            npm run build:win -- -p always
           else
-            npm run build:mac
+            npm run build:mac -- -p always
           fi
         shell: bash
 
