@@ -120,9 +120,16 @@ export function MainLayout({ children }: Props) {
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-3 px-3"
           >
-            <div
-              className="rounded-full h-10 w-10 bg-cover bg-center"
-              style={{ backgroundImage: `url(${kindergartenLogo})` }}
+            <img
+              src={kindergartenLogo}
+              alt="Logo"
+              className="rounded-full h-10 w-10 object-cover bg-gray-100"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                if (target.src !== logoUrl) {
+                  target.src = logoUrl;
+                }
+              }}
             />
             <div>
               <p className="text-base font-medium leading-none text-[#111813]">{kindergartenName}</p>

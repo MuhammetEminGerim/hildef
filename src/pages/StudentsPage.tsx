@@ -44,6 +44,7 @@ import { useStudentParents } from '../hooks/use-student-parents';
 import { useStudentHealth } from '../hooks/use-student-health';
 import { useStudentVaccinations } from '../hooks/use-student-vaccinations';
 import { useStudentFiles } from '../hooks/use-student-files';
+import { useClasses } from '../hooks/use-classes';
 
 const createEmptyHealth = (studentId: string): StudentHealth => ({
   id: '',
@@ -60,6 +61,7 @@ const createEmptyHealth = (studentId: string): StudentHealth => ({
 export default function StudentsPage() {
   const { toast } = useToast();
   const { students, loading, error, addStudent, updateStudent, deleteStudent } = useStudents();
+  const { classes } = useClasses();
 
   // State declarations FIRST
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
@@ -132,12 +134,14 @@ export default function StudentsPage() {
 
   const pageSize = 4;
 
+
+
   const getStudentClass = (student: Student) => {
-    if (!student.tags) {
+    if (!student.class_id) {
       return 'Sınıf Belirtilmedi';
     }
-    const firstTag = student.tags.split(',').map((tag) => tag.trim()).find(Boolean);
-    return firstTag || 'Sınıf Belirtilmedi';
+    const cls = classes.find((c) => c.id === student.class_id);
+    return cls ? cls.name : 'Sınıf Belirtilmedi';
   };
 
   const classOptions = useMemo(() => {

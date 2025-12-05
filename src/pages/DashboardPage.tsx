@@ -6,6 +6,7 @@ import { useAuthStore } from '../store/authStore';
 import { useStudents } from '../hooks/use-students';
 import { usePayments } from '../hooks/use-payments';
 import { useExpenses } from '../hooks/use-expenses';
+import { useAttendance } from '../hooks/use-attendance';
 
 type DashboardSummary = {
   totalStudents: number;
@@ -42,11 +43,13 @@ export default function DashboardPage() {
   const { students, loading: studentsLoading } = useStudents();
   const { payments, loading: paymentsLoading } = usePayments();
   const { expenses, loading: expensesLoading } = useExpenses();
+  const today = new Date().toISOString().slice(0, 10);
+  const { attendance, loading: attendanceLoading } = useAttendance(today);
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [attendanceSummary, setAttendanceSummary] = useState<AttendanceSummary | null>(null);
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
 
-  const loading = studentsLoading || paymentsLoading || expensesLoading;
+  const loading = studentsLoading || paymentsLoading || expensesLoading || attendanceLoading;
 
   useEffect(() => {
     // Calculate summary from students
@@ -81,16 +84,21 @@ export default function DashboardPage() {
       expenseSeries: []
     });
 
+    const present = attendance.filter(a => a.status === 'present').length;
+    const absent = attendance.filter(a => a.status === 'absent').length;
+    const late = attendance.filter(a => a.status === 'late').length;
+    const early = attendance.filter(a => a.status === 'early_leave').length;
+
     setAttendanceSummary({
       total_students: activeStudents,
-      present_count: 0,
-      absent_count: 0,
-      late_count: 0,
-      early_leave_count: 0
+      present_count: present,
+      absent_count: absent,
+      late_count: late,
+      early_leave_count: early
     });
 
     setUpcomingEvents([]);
-  }, [students, payments, expenses]);
+  }, [students, payments, expenses, attendance]);
 
   function formatEventDate(event: UpcomingEvent) {
     const date = new Date(event.event_date);
@@ -275,17 +283,16 @@ export default function DashboardPage() {
                       {attendanceSummary.present_count}
                     </span>
                   </div>
-                  {attendanceSummary.absent_count > 0 && (
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-[#fde7e7]">
-                      <div className="flex items-center gap-2">
-                        <XCircle className="h-4 w-4 text-[#c62828]" />
-                        <span className="text-sm text-[#111813]">Gelmedi</span>
-                      </div>
-                      <span className="text-sm font-bold text-[#c62828]">
-                        {attendanceSummary.absent_count}
-                      </span>
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-[#fde7e7]">
+                    <div className="flex items-center gap-2">
+                      <XCircle className="h-4 w-4 text-[#c62828]" />
+                      <span className="text-sm text-[#111813]">Gelmedi</span>
                     </div>
-                  )}
+                    <span className="text-sm font-bold text-[#c62828]">
+                      {attendanceSummary.absent_count}
+                    </span>
+                  </div>
+
                   {attendanceSummary.late_count > 0 && (
                     <div className="flex items-center justify-between p-2 rounded-lg bg-[#fef3c7]">
                       <div className="flex items-center gap-2">
