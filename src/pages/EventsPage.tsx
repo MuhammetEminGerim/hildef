@@ -1,18 +1,3 @@
-import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Plus, Edit, Trash2, Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '../components/ui/dialog';
 import { Textarea } from '../components/ui/textarea';
 import { useEvents } from '../hooks/use-events';
 
@@ -52,7 +37,7 @@ export default function EventsPage() {
     setEventForm({
       name: '',
       description: '',
-      event_date: new Date().toISOString().slice(0, 10),
+      event_date: getLocalToday(),
       event_time: '',
       location: '',
     });

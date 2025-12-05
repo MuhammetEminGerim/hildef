@@ -5,6 +5,13 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Button } from '../components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../components/ui/dialog';
+import { useStudents } from '../hooks/use-students';
+import { useStudentParents } from '../hooks/use-student-parents';
+import { useStudentHealth } from '../hooks/use-student-health';
+import { useStudentVaccinations } from '../hooks/use-student-vaccinations';
+import { useStudentFiles } from '../hooks/use-student-files';
+import { useClasses } from '../hooks/use-classes';
+import { cn, getLocalToday } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { FileUpload } from '../components/ui/file-upload';
 import { Select } from '../components/ui/select';
@@ -91,7 +98,7 @@ export default function StudentsPage() {
     parent_name: '',
     phone: '',
     emergency_contact: '',
-    enrollment_date: new Date().toISOString().slice(0, 10),
+    enrollment_date: getLocalToday(),
     monthly_fee: 0,
     status: 'active',
     notes: '',
@@ -252,7 +259,7 @@ export default function StudentsPage() {
       parent_name: '',
       phone: '',
       emergency_contact: '',
-      enrollment_date: new Date().toISOString().slice(0, 10),
+      enrollment_date: getLocalToday(),
       monthly_fee: 0,
       status: 'active',
       notes: '',
@@ -328,7 +335,7 @@ export default function StudentsPage() {
         parent_name: form.parent_name!,
         phone: form.phone!,
         date_of_birth: form.date_of_birth || '2000-01-01',
-        enrollment_date: form.enrollment_date || new Date().toISOString().slice(0, 10),
+        enrollment_date: form.enrollment_date || getLocalToday(),
         monthly_fee: typeof form.monthly_fee === 'number' ? form.monthly_fee : Number(form.monthly_fee) || 0,
         status: (form.status || 'active') as Student['status'],
         is_active: true,
@@ -1093,7 +1100,7 @@ export default function StudentsPage() {
                             id: '',
                             student_id: selectedStudent.id,
                             vaccine_name: '',
-                            vaccine_date: new Date().toISOString().slice(0, 10),
+                            vaccine_date: getLocalToday(),
                             next_dose_date: undefined,
                             notes: undefined,
                           }]);

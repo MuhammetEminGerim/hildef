@@ -67,6 +67,10 @@ export function useStudentFiles(studentId?: string) {
             // Upload to Cloudinary
             const file_url = await uploadImageToCloudinary(file);
 
+            import { getLocalToday } from '../lib/utils';
+
+            // ... existing imports
+
             // Save to Firestore
             await addDoc(collection(db, 'student_files'), {
                 student_id: studentId,
@@ -74,7 +78,7 @@ export function useStudentFiles(studentId?: string) {
                 file_url,
                 file_type: fileType,
                 file_size: file.size,
-                upload_date: new Date().toISOString().slice(0, 10),
+                upload_date: getLocalToday(),
                 created_at: serverTimestamp()
             });
         } catch (err: any) {

@@ -33,7 +33,7 @@ import { usePayments, type Payment, type PaymentStatus } from '../hooks/use-paym
 import { useExpenses } from '../hooks/use-expenses';
 import { useStudents } from '../hooks/use-students';
 import { usePaymentPlans } from '../hooks/use-payment-plans';
-import { cn } from '@/lib/utils';
+import { cn, getLocalToday } from '@/lib/utils';
 
 export default function FinancePage() {
   const { students } = useStudents();
@@ -57,8 +57,8 @@ export default function FinancePage() {
     amount: '',
     original_amount: '',
     discount_amount: '',
-    due_date: new Date().toISOString().slice(0, 10),
-    payment_date: new Date().toISOString().slice(0, 10),
+    due_date: getLocalToday(),
+    payment_date: getLocalToday(),
     payment_method: 'cash' as 'cash' | 'bank_transfer' | 'credit_card',
     month: new Date().toISOString().slice(0, 7),
     status: 'Paid' as PaymentStatus,
@@ -73,7 +73,7 @@ export default function FinancePage() {
     category: '',
     description: '',
     amount: '',
-    expense_date: new Date().toISOString().slice(0, 10),
+    expense_date: getLocalToday(),
     notes: '',
   });
 
@@ -81,7 +81,7 @@ export default function FinancePage() {
     student_id: '',
     plan_name: '',
     plan_type: 'monthly' as 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom',
-    start_date: new Date().toISOString().slice(0, 10),
+    start_date: getLocalToday(),
     end_date: '',
     monthly_amount: '',
     total_amount: '',
@@ -157,8 +157,8 @@ export default function FinancePage() {
       amount: '',
       original_amount: '',
       discount_amount: '',
-      due_date: new Date().toISOString().slice(0, 10),
-      payment_date: new Date().toISOString().slice(0, 10),
+      due_date: getLocalToday(),
+      payment_date: getLocalToday(),
       payment_method: 'cash',
       month: new Date().toISOString().slice(0, 7),
       status: 'Paid',
@@ -171,7 +171,7 @@ export default function FinancePage() {
       category: '',
       description: '',
       amount: '',
-      expense_date: new Date().toISOString().slice(0, 10),
+      expense_date: getLocalToday(),
       notes: '',
     });
   }
@@ -181,7 +181,7 @@ export default function FinancePage() {
       student_id: '',
       plan_name: '',
       plan_type: 'monthly',
-      start_date: new Date().toISOString().slice(0, 10),
+      start_date: getLocalToday(),
       end_date: '',
       monthly_amount: '',
       total_amount: '',
@@ -267,7 +267,7 @@ export default function FinancePage() {
       await updatePayment(selectedPayment.id, {
         partial_amount: newTotal,
         status: remaining <= 0 ? 'Paid' : 'Partial',
-        paid_date: remaining <= 0 ? new Date().toISOString().slice(0, 10) : null,
+        paid_date: remaining <= 0 ? getLocalToday() : null,
       });
 
       toast({

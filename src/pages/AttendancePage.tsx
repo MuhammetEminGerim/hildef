@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle2, XCircle, Clock, LogOut, ArrowLeft, Save, Users } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, LogOut, ArrowLeft, Save, Users, Filter } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -12,7 +12,7 @@ import StudentPhoto from '../components/StudentPhoto';
 import { useClasses } from '../hooks/use-classes';
 import { useStudents } from '../hooks/use-students';
 import { useAttendance } from '../hooks/use-attendance';
-import { cn } from '@/lib/utils';
+import { cn, getLocalToday } from '@/lib/utils';
 
 type AttendanceStatus = 'present' | 'absent' | 'late' | 'early_leave';
 
@@ -29,7 +29,7 @@ export default function AttendancePage() {
 
   const { classes } = useClasses();
   const { students: allStudents } = useStudents();
-  const [attendanceDate, setAttendanceDate] = useState(new Date().toISOString().slice(0, 10));
+  const [attendanceDate, setAttendanceDate] = useState(getLocalToday());
   const { attendance: existingAttendance, addAttendance, updateAttendance } = useAttendance(attendanceDate);
 
   const [selectedClassId, setSelectedClassId] = useState<string | null>(
