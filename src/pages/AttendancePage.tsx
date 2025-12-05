@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle2, XCircle, Clock, LogOut, ArrowLeft, Save, Users, Filter } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, LogOut, ArrowLeft, Save, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';

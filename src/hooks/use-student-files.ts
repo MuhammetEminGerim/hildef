@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getLocalToday } from '@/lib/utils';
 import {
     collection,
     addDoc,
@@ -67,7 +68,7 @@ export function useStudentFiles(studentId?: string) {
             // Upload to Cloudinary
             const file_url = await uploadImageToCloudinary(file);
 
-            import { getLocalToday } from '../lib/utils';
+
 
             // ... existing imports
 

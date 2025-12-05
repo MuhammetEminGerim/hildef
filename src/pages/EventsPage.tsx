@@ -1,3 +1,19 @@
+import { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
+import { Plus, Edit, Trash2, Search } from 'lucide-react';
+import { Input } from '../components/ui/input';
+import { Button } from '../components/ui/button';
+import { Label } from '../components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import { getLocalToday } from '@/lib/utils';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '../components/ui/dialog';
 import { Textarea } from '../components/ui/textarea';
 import { useEvents } from '../hooks/use-events';
 

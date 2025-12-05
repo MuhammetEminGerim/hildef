@@ -11,7 +11,7 @@ import { useStudentHealth } from '../hooks/use-student-health';
 import { useStudentVaccinations } from '../hooks/use-student-vaccinations';
 import { useStudentFiles } from '../hooks/use-student-files';
 import { useClasses } from '../hooks/use-classes';
-import { cn, getLocalToday } from '@/lib/utils';
+import { getLocalToday } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { FileUpload } from '../components/ui/file-upload';
 import { Select } from '../components/ui/select';
@@ -46,12 +46,7 @@ function StudentPhoto({ path, url, name }: { path?: string | null; url?: string 
   );
 }
 
-import { useStudents } from '../hooks/use-students';
-import { useStudentParents } from '../hooks/use-student-parents';
-import { useStudentHealth } from '../hooks/use-student-health';
-import { useStudentVaccinations } from '../hooks/use-student-vaccinations';
-import { useStudentFiles } from '../hooks/use-student-files';
-import { useClasses } from '../hooks/use-classes';
+
 
 const createEmptyHealth = (studentId: string): StudentHealth => ({
   id: '',

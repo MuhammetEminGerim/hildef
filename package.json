@@ -1,6 +1,6 @@
 {
   "name": "kindergarten-management",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Comprehensive Kindergarten/Daycare Management System",
   "main": "dist/main/main.js",
   "author": "Your Name",

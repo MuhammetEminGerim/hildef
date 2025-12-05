@@ -97,6 +97,7 @@ export type Payment = {
     status: PaymentStatus;
     note?: string | null;
     notes?: string; // Added alias for compatibility
+    is_active?: boolean; // Added for soft delete
     created_at?: any;
 };
 
