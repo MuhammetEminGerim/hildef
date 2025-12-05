@@ -43,6 +43,10 @@ jobs:
           echo "VITE_CLOUDINARY_UPLOAD_PRESET=${{ secrets.VITE_CLOUDINARY_UPLOAD_PRESET }}" >> .env
         shell: bash
 
+      - name: Create Firebase Service Account file
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > firebase-service-account.json
+        shell: bash
+
       - name: Build React App
         run: npm run build:renderer
 
