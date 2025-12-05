@@ -1,4 +1,9 @@
 import { app, BrowserWindow, ipcMain, protocol, dialog } from 'electron';
+import { applyTimePatch } from './timeFix';
+
+// Apply time patch immediately to fix "2025 Bug" / Clock Skew
+applyTimePatch();
+
 import path from 'path';
 import { getDb, closeDb } from './db/connection';
 import { registerStudentsIpc } from './ipc/studentsIpc';
