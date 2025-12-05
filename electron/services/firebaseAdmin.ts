@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import { app } from 'electron';
 import path from 'path';
 import fs from 'fs';
 
@@ -13,10 +14,12 @@ export function initializeFirebaseAdmin() {
         // Service account key dosyasını ara
         const pathsToCheck = [
             process.resourcesPath ? path.join(process.resourcesPath, 'firebase-service-account.json') : '',
+            path.join(app.getAppPath(), '..', 'firebase-service-account.json'),
+            path.join(app.getAppPath(), 'firebase-service-account.json'),
             path.join(__dirname, '..', 'firebase-service-account.json'), // Production/Build
             path.join(process.cwd(), 'firebase-service-account.json'),   // Development
             path.join(__dirname, '..', '..', 'firebase-service-account.json') // Alternative build structure
-        ];
+        ].filter(Boolean);
 
         let serviceAccountPath = '';
         for (const p of pathsToCheck) {
@@ -41,9 +44,11 @@ export function initializeFirebaseAdmin() {
             }
         } else {
             // Service account yoksa, environment variables kullan
-            console.warn('Service account file not found in checked paths:', pathsToCheck);
-            console.warn('Using default credentials (GOOGLE_APPLICATION_CREDENTIALS)');
-            admin.initializeApp();
+            const errorMsg = `Service account file not found. Checked paths: ${JSON.stringify(pathsToCheck, null, 2)}`;
+            console.error(errorMsg);
+
+            // Throw error explicitly to show in renderer
+            throw new Error(errorMsg);
         }
 
         adminInitialized = true;

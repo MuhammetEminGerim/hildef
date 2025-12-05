@@ -1,12 +1,13 @@
 {
   "name": "kindergarten-management",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Comprehensive Kindergarten/Daycare Management System",
   "main": "dist/main/main.js",
   "author": "Your Name",
   "license": "MIT",
   "private": true,
   "scripts": {
+    "release": "node scripts/validate-release.cjs && git push",
     "dev": "npm run build:main && concurrently \"vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
     "dev:vite": "vite",
     "dev:electron": "wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .",
