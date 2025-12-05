@@ -146,52 +146,16 @@ function setupAutoBackup() {
   }, periodMs);
 }
 
-// Simple file logger
-function logToFile(message: string) {
-  const logPath = path.join(app.getPath('userData'), 'update-log.txt');
-  const timestamp = new Date().toISOString();
-  const logMessage = `[${timestamp}] ${message}\n`;
-  fs.appendFileSync(logPath, logMessage);
-  console.log(message);
-}
-
-// Auto-updater logging
-autoUpdater.logger = {
-  info: (msg: string) => logToFile(`INFO: ${msg}`),
-  warn: (msg: string) => logToFile(`WARN: ${msg}`),
-  error: (msg: string) => logToFile(`ERROR: ${msg}`),
-  debug: (msg: string) => logToFile(`DEBUG: ${msg}`)
-};
 // Auto-updater events
-// Auto-updater events
-autoUpdater.on('checking-for-update', () => {
-  logToFile('Checking for update...');
-});
-
-autoUpdater.on('update-available', (info) => {
-  logToFile(`Update available: ${JSON.stringify(info)}`);
+autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
     type: 'info',
     title: 'Güncelleme Mevcut',
-    message: `Yeni sürüm (${info.version}) bulundu ve indiriliyor...`,
+    message: 'Yeni bir sürüm bulundu ve indiriliyor...',
   });
 });
 
-autoUpdater.on('update-not-available', (info) => {
-  logToFile(`Update not available: ${JSON.stringify(info)}`);
-});
-
-autoUpdater.on('error', (err) => {
-  logToFile(`Auto-updater error: ${err}`);
-  // Error dialog removed for better UX
-});
-
-autoUpdater.on('download-progress', (progressObj) => {
-  logToFile(`Download speed: ${progressObj.bytesPerSecond} - Downloaded ${progressObj.percent}%`);
-});
-
-autoUpdater.on('update-downloaded', (info) => {
-  logToFile(`Update downloaded: ${JSON.stringify(info)}`);
+autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox({
     type: 'info',
     title: 'Güncelleme Hazır',
