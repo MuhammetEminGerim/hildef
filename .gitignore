@@ -23,7 +23,6 @@ build/
 .env.production
 
 # Firebase Service Account (SECURITY - DO NOT COMMIT)
-firebase-service-account.json
 
 
 # IDE

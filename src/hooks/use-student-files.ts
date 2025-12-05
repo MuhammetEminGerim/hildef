@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getLocalToday } from '@/lib/utils';
 import {
     collection,
     addDoc,
@@ -68,10 +67,6 @@ export function useStudentFiles(studentId?: string) {
             // Upload to Cloudinary
             const file_url = await uploadImageToCloudinary(file);
 
-
-
-            // ... existing imports
-
             // Save to Firestore
             await addDoc(collection(db, 'student_files'), {
                 student_id: studentId,
@@ -79,7 +74,7 @@ export function useStudentFiles(studentId?: string) {
                 file_url,
                 file_type: fileType,
                 file_size: file.size,
-                upload_date: getLocalToday(),
+                upload_date: new Date().toISOString().slice(0, 10),
                 created_at: serverTimestamp()
             });
         } catch (err: any) {

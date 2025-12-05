@@ -1,5 +1,4 @@
 import { app, BrowserWindow, ipcMain, protocol, dialog } from 'electron';
-import { applyTimePatch } from './timeFix';
 import path from 'path';
 import { getDb, closeDb } from './db/connection';
 import { registerStudentsIpc } from './ipc/studentsIpc';
@@ -152,7 +151,7 @@ autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
     type: 'info',
     title: 'Güncelleme Mevcut',
-    message: 'Yeni bir sürüm bulundu ve indiriliyor...',
+    message: 'Yeni bir sürüm bulundu ve arka planda indiriliyor.',
   });
 });
 
@@ -180,9 +179,6 @@ if (!gotLock) {
   });
 
   app.whenReady().then(() => {
-    // Apply time patch to fix "2025 Bug" / Clock Skew
-    applyTimePatch();
-
     // Custom protocol for local files (photos, documents)
     protocol.registerFileProtocol('app', (request, callback) => {
       const url = new URL(request.url);

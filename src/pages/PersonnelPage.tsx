@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { getLocalToday } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
@@ -215,7 +214,7 @@ export default function PersonnelPage() {
           role: staffForm.role,
           phone: staffForm.phone || '',
           email: staffForm.email,
-          start_date: staffForm.start_date || getLocalToday(),
+          start_date: staffForm.start_date || new Date().toISOString().slice(0, 10),
           salary: staffForm.salary ? Number(staffForm.salary) : undefined,
           notes: staffForm.notes,
         },

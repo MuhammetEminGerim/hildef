@@ -43,11 +43,7 @@ export default function DashboardPage() {
   const { students, loading: studentsLoading } = useStudents();
   const { payments, loading: paymentsLoading } = usePayments();
   const { expenses, loading: expensesLoading } = useExpenses();
-
-  // Fix: Use local date instead of UTC to ensure correct day after midnight
-  const now = new Date();
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-
+  const today = new Date().toISOString().slice(0, 10);
   const { attendance, loading: attendanceLoading } = useAttendance(today);
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [attendanceSummary, setAttendanceSummary] = useState<AttendanceSummary | null>(null);

@@ -12,7 +12,7 @@ import StudentPhoto from '../components/StudentPhoto';
 import { useClasses } from '../hooks/use-classes';
 import { useStudents } from '../hooks/use-students';
 import { useAttendance } from '../hooks/use-attendance';
-import { cn, getLocalToday } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 type AttendanceStatus = 'present' | 'absent' | 'late' | 'early_leave';
 
@@ -29,7 +29,7 @@ export default function AttendancePage() {
 
   const { classes } = useClasses();
   const { students: allStudents } = useStudents();
-  const [attendanceDate, setAttendanceDate] = useState(getLocalToday());
+  const [attendanceDate, setAttendanceDate] = useState(new Date().toISOString().slice(0, 10));
   const { attendance: existingAttendance, addAttendance, updateAttendance } = useAttendance(attendanceDate);
 
   const [selectedClassId, setSelectedClassId] = useState<string | null>(

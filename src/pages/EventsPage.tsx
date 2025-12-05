@@ -1,11 +1,10 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
-import { Input } from '../components/ui/input';
-import { Button } from '../components/ui/button';
-import { Label } from '../components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { getLocalToday } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
@@ -53,7 +52,7 @@ export default function EventsPage() {
     setEventForm({
       name: '',
       description: '',
-      event_date: getLocalToday(),
+      event_date: new Date().toISOString().slice(0, 10),
       event_time: '',
       location: '',
     });

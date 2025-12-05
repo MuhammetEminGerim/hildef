@@ -7,16 +7,13 @@ on:
     tags:
       - 'v*'
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, macos-latest]
 
     steps:
       - name: Check out Git repository
@@ -41,10 +38,6 @@ jobs:
           echo "VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}" >> .env
           echo "VITE_CLOUDINARY_CLOUD_NAME=${{ secrets.VITE_CLOUDINARY_CLOUD_NAME }}" >> .env
           echo "VITE_CLOUDINARY_UPLOAD_PRESET=${{ secrets.VITE_CLOUDINARY_UPLOAD_PRESET }}" >> .env
-        shell: bash
-
-      - name: Create Firebase Service Account file
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > firebase-service-account.json
         shell: bash
 
       - name: Build React App
