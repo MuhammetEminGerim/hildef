@@ -8,7 +8,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Select } from '../components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { cn } from '@/lib/utils';
+import { cn, getLocalToday } from '@/lib/utils';
 import StudentPhoto from '../components/StudentPhoto';
 import { useClasses } from '../hooks/use-classes';
 import { useStudents } from '../hooks/use-students';
@@ -24,9 +24,11 @@ export default function AttendanceHistoryPage() {
   const [viewMode, setViewMode] = useState<ViewMode>('class');
   const [startDate, setStartDate] = useState(() => {
     const d = new Date();
-    return new Date(d.getFullYear(), d.getMonth(), 1).toISOString().slice(0, 10);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    return `${year}-${month}-01`;
   });
-  const [endDate, setEndDate] = useState(new Date().toISOString().slice(0, 10));
+  const [endDate, setEndDate] = useState(getLocalToday());
   const [statusFilter, setStatusFilter] = useState<'all' | 'present' | 'absent' | 'late' | 'early_leave'>('all');
 
   // Get attendance for date range

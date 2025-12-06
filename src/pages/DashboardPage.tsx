@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { cn } from '@/lib/utils';
+import { cn, getLocalToday } from '@/lib/utils';
 import { Calendar, CheckCircle2, XCircle, Clock } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { useStudents } from '../hooks/use-students';
@@ -43,7 +43,7 @@ export default function DashboardPage() {
   const { students, loading: studentsLoading } = useStudents();
   const { payments, loading: paymentsLoading } = usePayments();
   const { expenses, loading: expensesLoading } = useExpenses();
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getLocalToday();
   const { attendance, loading: attendanceLoading } = useAttendance(today);
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [attendanceSummary, setAttendanceSummary] = useState<AttendanceSummary | null>(null);

@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { FileUpload } from '../components/ui/file-upload';
 import { Select } from '../components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { getLocalToday } from '@/lib/utils';
 import { Skeleton } from '../components/ui/skeleton';
 import { Student, StudentParent, StudentHealth, StudentVaccination, StudentFile } from '../lib/types';
 import { uploadImageToCloudinary } from '../lib/cloudinary';
@@ -91,7 +92,7 @@ export default function StudentsPage() {
     parent_name: '',
     phone: '',
     emergency_contact: '',
-    enrollment_date: new Date().toISOString().slice(0, 10),
+    enrollment_date: getLocalToday(),
     monthly_fee: 0,
     status: 'active',
     notes: '',
@@ -252,7 +253,7 @@ export default function StudentsPage() {
       parent_name: '',
       phone: '',
       emergency_contact: '',
-      enrollment_date: new Date().toISOString().slice(0, 10),
+      enrollment_date: getLocalToday(),
       monthly_fee: 0,
       status: 'active',
       notes: '',
@@ -328,7 +329,7 @@ export default function StudentsPage() {
         parent_name: form.parent_name!,
         phone: form.phone!,
         date_of_birth: form.date_of_birth || '2000-01-01',
-        enrollment_date: form.enrollment_date || new Date().toISOString().slice(0, 10),
+        enrollment_date: form.enrollment_date || getLocalToday(),
         monthly_fee: typeof form.monthly_fee === 'number' ? form.monthly_fee : Number(form.monthly_fee) || 0,
         status: (form.status || 'active') as Student['status'],
         is_active: true,
@@ -1093,7 +1094,7 @@ export default function StudentsPage() {
                             id: '',
                             student_id: selectedStudent.id,
                             vaccine_name: '',
-                            vaccine_date: new Date().toISOString().slice(0, 10),
+                            vaccine_date: getLocalToday(),
                             next_dose_date: undefined,
                             notes: undefined,
                           }]);

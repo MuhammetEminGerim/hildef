@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { uploadImageToCloudinary } from '../lib/cloudinary';
+import { getLocalToday } from '../lib/utils';
 
 export type StudentFile = {
     id: string;
@@ -74,7 +75,7 @@ export function useStudentFiles(studentId?: string) {
                 file_url,
                 file_type: fileType,
                 file_size: file.size,
-                upload_date: new Date().toISOString().slice(0, 10),
+                upload_date: getLocalToday(),
                 created_at: serverTimestamp()
             });
         } catch (err: any) {

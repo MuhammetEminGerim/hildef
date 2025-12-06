@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import { getLocalToday } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
@@ -52,7 +53,7 @@ export default function EventsPage() {
     setEventForm({
       name: '',
       description: '',
-      event_date: new Date().toISOString().slice(0, 10),
+      event_date: getLocalToday(),
       event_time: '',
       location: '',
     });
