@@ -169,3 +169,6 @@ MIT
 ## Author
 
 Your Name
+
+---
+*Last updated: 26.12.2024*
